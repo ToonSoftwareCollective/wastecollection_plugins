@@ -1,4 +1,4 @@
-//<provider>1</provider><version>1.0.0</version><parms>"zipcode,housenr"</parms>
+//<provider>1</provider><version>1.0.1</version><parms>"zipcode,housenr"</parms>
 //mijnafvalwijzer,nl (also used for provider 13, 22 and 31)
 
 	function readCalendar(wasteZipcode, wasteHouseNr, extraDates, enableCreateICS, wasteICSId, wasteStreet, wasteStreetName, wasteCity, wasteFullICSUrl) {
@@ -86,6 +86,26 @@
 		}
 		xmlhttp.open("GET", "https://www.mijnafvalwijzer.nl/nl/" + wasteZipcode + "/" + wasteHouseNr, true);
 		xmlhttp.send();
+	}
+
+	function decodeMonth(month) {
+
+		switch (month) {
+			case "januari": return "01";
+			case "februari": return "02";
+			case "maart": return "03";
+			case "april": return "04";
+			case "mei": return "05";
+			case "juni": return "06";
+			case "juli": return "07";
+			case "augustus": return "08";
+			case "september": return "09";
+			case "oktober": return "10";
+			case "november": return "11";
+			case "december": return "12";
+			default: break;
+		}
+		return "??";
 	}
 
 	function wasteTypeMijnafvalwijzer(shortName) {
