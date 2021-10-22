@@ -1,4 +1,4 @@
-//<provider>1</provider><version>1.0.0</version><parms>"zipcode,housenr"</parms>
+//<provider>1</provider><version>1.0.1</version><parms>"zipcode,housenr"</parms>
 //mijnafvalwijzer,nl (also used for provider 13, 22 and 31)
 
 	function readCalendar(wasteZipcode, wasteHouseNr, extraDates, enableCreateICS, wasteICSId, wasteStreet, wasteStreetName, wasteCity, wasteFullICSUrl) {
@@ -150,6 +150,13 @@
 	function writeWasteDates(wasteDatesString, enableCreateICS) {
    		var doc2 = new XMLHttpRequest();
    		doc2.open("PUT", "file:///var/volatile/tmp/wasteDates.txt");
+		doc2.onreadystatechange=function() {
+			if (doc2.readyState === 4){
+				if (doc2.status === 0) {
+					updateWasteIcon("no");
+				}
+			}
+		}
    		doc2.send(wasteDatesString);
 
 		// create ICS file for use in the calendar app when requested
