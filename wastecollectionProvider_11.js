@@ -1,5 +1,5 @@
 //<provider>11</provider><version>1.0.0</version><parms>"ICSId"</parms>
-//provider DenHaag.nl
+//provider DenHaag.nl 0518200000639572
 
 	function readCalendar(wasteZipcode, wasteHouseNr, extraDates, enableCreateICS, wasteICSId, wasteStreet, wasteStreetName, wasteCity, wasteFullICSUrl) {
 	

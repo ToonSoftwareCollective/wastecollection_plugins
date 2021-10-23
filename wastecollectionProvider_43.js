@@ -54,7 +54,7 @@
 				wasteDatesString = "";
 				var wasteType = "";
 				var mobileAfvalbeheerDates = [];
-				calendar2goMobile = JSON.parse(xmlhttp.responseText)
+				var calendar2goMobile = JSON.parse(xmlhttp.responseText)
 				for (var i= 0; i < calendar2goMobile['dataList'].length; i++) {
 					for (var j= 0; j < calendar2goMobile['dataList'][i]['pickupDates'].length; j++) {
 						if (calendar2goMobile['dataList'][i]['_pickupTypeText'] == "GREENGREY") {
