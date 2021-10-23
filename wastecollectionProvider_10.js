@@ -1,5 +1,5 @@
-//<provider>10</provider><version>1.0.0</version><parms>"city,streetName"</parms>
-//provider limburg.net testdata: Arendonk Lusthoven
+//<provider>10</provider><version>1.0.1</version><parms>"city,streetName"</parms>
+//provider limburg.net testdata: Hasselt Bakkerslaan
 
 	function readCalendar(wasteZipcode, wasteHouseNr, extraDates, enableCreateICS, wasteICSId, wasteStreet, wasteStreetName, wasteCity, wasteFullICSUrl) {
 	
@@ -97,6 +97,7 @@
 
 	function wasteTypeLimburg(shortName) {
 		switch (shortName) {
+			case "Tex": return 5;		//textiel
 			case "Gft": return 3;		//gft
 			case "Hui": return 0;		//huisvuil
 			case "Pap": return 2;		//papier en karton
