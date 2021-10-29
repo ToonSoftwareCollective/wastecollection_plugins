@@ -1,4 +1,4 @@
-//<provider>14</provider><version>1.0.0</version><parms>"zipcode,housenr"</parms>
+//<provider>14</provider><version>1.0.1</version><parms>"zipcode,housenr"</parms>
 //rova.nl
 
 	function readCalendar(wasteZipcode, wasteHouseNr, extraDates, enableCreateICS, wasteICSId, wasteStreet, wasteStreetName, wasteCity, wasteFullICSUrl) {
@@ -125,7 +125,7 @@
 				case "restafval": return 0;
 				case "takken": return 4;
 				case "kerstbomen": return 4;
-				case "papier & karton": return 2;
+				case "Los papier": return 2;
 				case "papier en karton": return 2;
 				case "textiel": return 5;
 				case "plastic verpakking & drankkartons": return 1;
