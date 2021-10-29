@@ -1,5 +1,5 @@
-//<provider>1</provider><version>1.0.1</version><parms>"zipcode,housenr"</parms>
-//mijnafvalwijzer,nl (also used for provider 13, 22 and 31)
+//<provider>14</provider><version>1.0.0</version><parms>"zipcode,housenr"</parms>
+//rova.nl
 
 	function readCalendar(wasteZipcode, wasteHouseNr, extraDates, enableCreateICS, wasteICSId, wasteStreet, wasteStreetName, wasteCity, wasteFullICSUrl) {
 
@@ -86,7 +86,7 @@
 		}
 		xmlhttp.open("GET", "https://inzamelkalender.rova.nl/nl/" + wasteZipcode + "/" + wasteHouseNr, true);
 		xmlhttp.send();
-	}	}
+	}
 
 	function decodeMonth(month) {
 
