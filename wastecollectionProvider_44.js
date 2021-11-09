@@ -1,5 +1,5 @@
 //<provider>44</provider><version>1.0.0</version><parms>"fullICSUrl"</parms>
-//provider gemeentewestland testdata:https://wasteprod2api.ximmio.com/api/CallIcal?cn=Gemeente Westland&x=6fc75608-126a-4a50-9241-a002ce8c8a6c&ty=null&ua=2d5c426861cccd9c0cec47730dd65e253908c080&sd=2020-12-21&ed=2024-01-09&path=https://wasteprod2api.ximmio.com&ln=nl&nt=7
+//provider gemeentewestland.nl testdata:https://wasteprod2api.ximmio.com/api/CallIcal?cn=Gemeente Westland&x=6fc75608-126a-4a50-9241-a002ce8c8a6c&ty=null&ua=2d5c426861cccd9c0cec47730dd65e253908c080&sd=2020-12-21&ed=2024-01-09&path=https://wasteprod2api.ximmio.com&ln=nl&nt=7
 
 	function readCalendar(wasteZipcode, wasteHouseNr, extraDates, enableCreateICS, wasteICSId, wasteStreet, wasteStreetName, wasteCity, wasteFullICSUrl) {
 
