@@ -1,4 +1,4 @@
-//<provider>22</provider><version>1.0.0</version><parms></parms>
+//<provider>22</provider><version>1.0.1</version><parms></parms>
 //afvalstoffendienst.nl testdata: 5237KW 400
 
 	function readCalendar(wasteZipcode, wasteHouseNr, extraDates, enableCreateICS, wasteICSId, wasteStreet, wasteStreetName, wasteCity, wasteFullICSUrl) {
@@ -44,8 +44,6 @@
 							l = aNode.indexOf('<', j);
 
 							resultDates =  aNode.substring(j + 2, l).split(" ");
-							console.log("WASTE: " + i + "-" + j + "-"+ l);
-							console.log("WASTE: resultdates:" + i + "-" + wasteCodeHTML + resultDates);
 	
 							wasteDateYMD = wasteYear + "-" + decodeMonth(resultDates[2]) + "-" + resultDates[1];
 							wasteType = wasteTypeMijnafvalwijzer(wasteCodeHTML);
