@@ -1,4 +1,4 @@
-//<provider>22</provider><version>1.0.0</version><parms>"zipcode,housenr"</parms>
+//<provider>22</provider><version>1.0.0</version><parms></parms>
 //afvalstoffendienst.nl testdata: 5237KW 400
 
 	function readCalendar(wasteZipcode, wasteHouseNr, extraDates, enableCreateICS, wasteICSId, wasteStreet, wasteStreetName, wasteCity, wasteFullICSUrl) {
