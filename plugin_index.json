@@ -39,6 +39,7 @@
 {"friendlyName":"radbv.nl", "provider":"41", "data": [], "info":"Plugin voor RAD Hoeksewaard. Ophaaldata worden automatisch ingelezen na invoering van de volledige URL van de kalender achter de tag 'ICSUrl' in het bestand \/mnt\/data\/tsc\/wastecollection.userSettings.json)"},
 {"friendlyName":"mijnblink.nl", "provider":"42", "data": ["ICSId"], "info":"Plugin voor mijnblink.nl. Ophaaldata worden automatisch ingelezen na invoering van het kalender nummer. Login op de website en zoek de downloadlink voor de kalender. Het nummer aan het eind van de link moet hier worden ingevuld (meestal 16 cijfers)"},
 {"friendlyName":"acv-afvalkalender.nl", "provider":"43", "data": ["zipcode","housenr"], "info":"Plugin voor acv-afvalkalender.nl. Ophaaldata worden automatisch ingelezen na invoering postcode/huisnummer"},
-{"friendlyName":"gemeentewestland.nl", "provider":"44", "data": [], "info":"Plugin voor gemeentewestland.nl Ophaaldata worden automatisch ingelezen na invoering van de volledige URL van de kalender achter de tag 'ICSUrl' in het bestand \/mnt\/data\/tsc\/wastecollection.userSettings.json)"}
+{"friendlyName":"gemeentewestland.nl", "provider":"44", "data": [], "info":"Plugin voor gemeentewestland.nl Ophaaldata worden automatisch ingelezen na invoering van de volledige URL van de kalender achter de tag 'ICSUrl' in het bestand \/mnt\/data\/tsc\/wastecollection.userSettings.json)"},
+{"friendlyName":"eemsdelta.nl", "provider":"45", "data": ["zipcode","housenr"], "info":"Plugin voor eemsdelta.nl. Ophaaldata worden automatisch ingelezen na invoering postcode/huisnummer"}
 ]}
 
