@@ -1,4 +1,5 @@
 {"plugins":[
+{"friendlyName":"Alleen extra datums", "provider":"0", "data": [], "info":"Plugin voor uitsluitend extra datums zoals gespecificeerd in de instellingen van de app"},
 {"friendlyName":"mijnafvalwijzer.nl", "provider":"1", "data": ["zipcode","housenr"], "info":"Plugin voor mijnafvalwijzer.nl. Ophaaldata worden automatisch ingelezen na invoering postcode/huisnummer"},
 {"friendlyName":"deafvalapp.nl", "provider":"2", "data": ["zipcode","housenr"], "info":"Plugin voor de afvalapp.nl. Ophaaldata worden automatisch ingelezen na invoering postcode/huisnummer"},
 {"friendlyName":"prezero.nl", "provider":"3", "data": ["ICSId"], "info":"Plugin voor prezero.nl. Ophaaldata worden automatisch ingelezen na invoering van het kalender nummer. Login op de website en zoek de downloadlink voor de kalender. Het nummer aan het eind van de link moet hier worden ingevuld (meestal 16 cijfers)"},
