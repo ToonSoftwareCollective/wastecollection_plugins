@@ -1,4 +1,4 @@
-//<provider>3</provider><version>1.0.1</version><parms>"ICSId"</parms>
+//<provider>3</provider><version>1.0.2</version><parms>"ICSId"</parms>
 //provider prezero.nl testdata:12, 6846GB 0202200000390255
 
 	function readCalendar(wasteZipcode, wasteHouseNr, extraDates, enableCreateICS, wasteICSId, wasteStreet, wasteStreetName, wasteCity, wasteFullICSUrl) {
@@ -55,7 +55,7 @@
 			case "Papier": return 2;
 			case "Plasti": return 1;
 			case "Textie": return 5;
-			case "Kerstb": return 4;
+			case "Kerstb": return "#";
 			default: break;
 		}
 		return "?";
