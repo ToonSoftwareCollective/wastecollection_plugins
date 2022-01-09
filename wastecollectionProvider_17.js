@@ -1,4 +1,4 @@
-//<provider>17</provider><version>1.0.0</version><parms>"zipcode,housenr"</parms>
+//<provider>17</provider><version>1.0.1</version><parms>"zipcode,housenr"</parms>
 //provider rd4info testdata:6444GL 10
 
 	function readCalendar(wasteZipcode, wasteHouseNr, extraDates, enableCreateICS, wasteICSId, wasteStreet, wasteStreetName, wasteCity, wasteFullICSUrl) {
@@ -67,7 +67,7 @@
 			case "PMD-afval": return 1;		//plastic metaal drankpakken
 			case "Oud papier": return 2;		//papier en karton
 			case "Snoeiafval op afspraak": return 4;		//tuin en snoeiafval
-			case "Kerstbomen": return 4;		//tuin en snoeiafval
+			case "Kerstbomen": return "#";		//kerstbomen
 			case "BEST-tas": return "!";		//BEST-tas
 			default: break;
 		}
