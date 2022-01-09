@@ -1,4 +1,4 @@
-//<provider>45</provider><version>1.0.0</version><parms>"zipcode,housenr"</parms>
+//<provider>45</provider><version>1.0.1</version><parms>"zipcode,housenr"</parms>
 //provider eemsdelta.nl testdata:9934HA 21
 
 	function readCalendar(wasteZipcode, wasteHouseNr, extraDates, enableCreateICS, wasteICSId, wasteStreet, wasteStreetName, wasteCity, wasteFullICSUrl) {
