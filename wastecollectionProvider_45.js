@@ -55,7 +55,7 @@
 			case "Pap": return 2;
 			case "Gro": return 8;
 			case "Kca": return 7;
-			case "Ker": return 4;
+			case "Ker": return "#";
 			default: break;
 		}
 		return "?";
