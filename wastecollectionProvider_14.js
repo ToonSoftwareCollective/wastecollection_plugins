@@ -124,7 +124,7 @@
 				case "pbd": return 2;
 				case "restafval": return 0;
 				case "takken": return 4;
-				case "kerstbomen": return 4;
+				case "kerstbomen": return "#";
 				case "pd": return 2;
 				case "papier en karton": return 2;
 				case "textiel": return 5;
