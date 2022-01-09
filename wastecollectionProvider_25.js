@@ -1,4 +1,4 @@
-//<provider>25</provider><version>1.0.0</version><parms>"fullICSUrl"</parms>
+//<provider>25</provider><version>1.0.1</version><parms>"fullICSUrl"</parms>
 //provider area-afval.nl testdata: 7908MH 40 https://wasteapi.ximmio.com/api/CallIcal?cn=Area Reiniging&x=adc418da-d19b-11e5-ab30-625662870761&ty=Hoogeveen&ua=1000012565&sd=2020-12-21&ed=2024-01-09&path=https://wasteapi.ximmio.com&ln=nl&nt=7
 
 	function readCalendar(wasteZipcode, wasteHouseNr, extraDates, enableCreateICS, wasteICSId, wasteStreet, wasteStreetName, wasteCity, wasteFullICSUrl) {
@@ -65,7 +65,7 @@
 			case "Pmd": return 1;
 			case "Ver": return 1;
 			case "Pap": return 2;
-			case "Ker": return 4;
+			case "Ker": return "#";
 			case "Tak": return 4;
 			case "Tex": return 5;
 			case "KCA": return 7;
