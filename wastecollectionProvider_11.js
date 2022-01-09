@@ -1,4 +1,4 @@
-//<provider>11</provider><version>1.0.0</version><parms>"ICSId"</parms>
+//<provider>11</provider><version>1.0.1</version><parms>"ICSId"</parms>
 //provider DenHaag.nl 0518200000639572
 
 	function readCalendar(wasteZipcode, wasteHouseNr, extraDates, enableCreateICS, wasteICSId, wasteStreet, wasteStreetName, wasteCity, wasteFullICSUrl) {
@@ -51,7 +51,7 @@
 			case "GFT": return 3;
 			case "Res": return 0;
 			case "Pap": return 2;
-			case "Ker": return 4;
+			case "Ker": return "#";
 			case "Gro": return 3;
 			case "Pap": return 2;
 			case "PMD": return 1;
