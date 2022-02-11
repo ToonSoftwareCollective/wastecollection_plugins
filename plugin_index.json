@@ -43,6 +43,7 @@
 {"friendlyName":"gemeentewestland.nl", "provider":"44", "data": [], "info":"Plugin voor gemeentewestland.nl Ophaaldata worden automatisch ingelezen na invoering van de volledige URL van de kalender achter de tag 'ICSUrl' in het bestand \/mnt\/data\/tsc\/wastecollection.userSettings.json)"},
 {"friendlyName":"eemsdelta.nl", "provider":"45", "data": ["zipcode","housenr"], "info":"Plugin voor eemsdelta.nl. Ophaaldata worden automatisch ingelezen na invoering postcode/huisnummer"},
 {"friendlyName":"waardlanden.nl", "provider":"46", "data": ["zipcode","housenr"], "info":"Plugin voor waardlanden.nl. Ophaaldata worden automatisch ingelezen na invoering postcode/huisnummer"},
-{"friendlyName":"lingewaard.nl", "provider":"47", "data": ["ICSId"], "info":"Plugin voor lingewaard.nl. Ophaaldata worden automatisch ingelezen na invoering van het kalender nummer. Login op de website en zoek de downloadlink voor de kalender. Het nummer aan het eind van de link moet hier worden ingevuld (meestal 16 cijfers)"}
+{"friendlyName":"lingewaard.nl", "provider":"47", "data": ["ICSId"], "info":"Plugin voor lingewaard.nl. Ophaaldata worden automatisch ingelezen na invoering van het kalender nummer. Login op de website en zoek de downloadlink voor de kalender. Het nummer aan het eind van de link moet hier worden ingevuld (meestal 16 cijfers)"},
+{"friendlyName":"middelburgvlissingen.nl", "provider":"48", "data": ["ICSId"], "info":"Plugin voor middelburgvlissingen.nl. Ophaaldata worden automatisch ingelezen na invoering van het kalender nummer. Login op de website en zoek de downloadlink voor de kalender. Het nummer aan het eind van de link moet hier worden ingevuld (meestal 16 cijfers)"}
 ]}
 
