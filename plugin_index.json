@@ -45,6 +45,7 @@
 {"friendlyName":"waardlanden.nl", "provider":"46", "data": ["zipcode","housenr"], "info":"Plugin voor waardlanden.nl. Ophaaldata worden automatisch ingelezen na invoering postcode/huisnummer"},
 {"friendlyName":"lingewaard.nl", "provider":"47", "data": ["ICSId"], "info":"Plugin voor lingewaard.nl. Ophaaldata worden automatisch ingelezen na invoering van het kalender nummer. Login op de website en zoek de downloadlink voor de kalender. Het nummer aan het eind van de link moet hier worden ingevuld (meestal 16 cijfers)"},
 {"friendlyName":"middelburgvlissingen.nl", "provider":"48", "data": ["ICSId"], "info":"Plugin voor middelburgvlissingen.nl. Ophaaldata worden automatisch ingelezen na invoering van het kalender nummer. Login op de website en zoek de downloadlink voor de kalender. Het nummer aan het eind van de link moet hier worden ingevuld (meestal 16 cijfers)"},
-{"friendlyName":"borssele.nl", "provider":"49", "data": ["zipcode","housenr"], "info":"Plugin voor borssele.nl. Ophaaldata worden automatisch ingelezen na invoering van postcode/huisnummer"}
+{"friendlyName":"borssele.nl", "provider":"49", "data": ["zipcode","housenr"], "info":"Plugin voor borssele.nl. Ophaaldata worden automatisch ingelezen na invoering van postcode/huisnummer"},
+{"friendlyName":"goes.nl", "provider":"50", "data": ["zipcode","housenr"], "info":"Plugin voor goes.nl. Ophaaldata worden automatisch ingelezen na invoering van postcode/huisnummer"}
 ]}
 
