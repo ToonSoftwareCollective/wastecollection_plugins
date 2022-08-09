@@ -1,4 +1,4 @@
-//<provider>21</provider><version>1.0.0</version><parms>"manualcopyhtml"</parms>
+//<provider>21</provider><version>1.0.1</version><parms>"manualcopyhtml"</parms>
 //provider omrin.nl testdata: omrin.htm  9989BZ 39
 
 	function readCalendar(wasteZipcode, wasteHouseNr, extraDates, enableCreateICS, wasteICSId, wasteStreet, wasteStreetName, wasteCity, wasteFullICSUrl) {
@@ -14,6 +14,7 @@
 		var omrinAfvalbeheerDates = [];
 		var omrinYear = "";
 		var monthStr = "";
+		var dayNr = "";
 
 		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.onreadystatechange = function() {
@@ -42,9 +43,11 @@
 						n = aNode.indexOf("[", i);
 						m = aNode.indexOf("]", i);
 						var monthDates = aNode.substring(n + 1, m).split(',');  //get array for the month
-
-						for (l = 0; l < monthDates.length; l++) {	
-							omrinAfvalbeheerDates.push(omrinYear + "-" + monthStr + "-" + monthDates[l].replace(/['"]+/g, '') + ",0");    //restafval
+						if ( m !== n+1) {
+							for (l = 0; l < monthDates.length; l++) {	
+								dayNr = ("00" + monthDates[l].replace(/['"]+/g, '')).slice(-2)
+								omrinAfvalbeheerDates.push(omrinYear + "-" + monthStr + "-" + dayNr + ",0");    //restafval
+							}
 						}
 					}
 				}
@@ -62,16 +65,18 @@
 						n = aNode.indexOf("[", i);
 						m = aNode.indexOf("]", i);
 						var monthDates = aNode.substring(n + 1, m).split(',');  //get array for the month
-
-						for (l = 0; l < monthDates.length; l++) {
-							omrinAfvalbeheerDates.push(omrinYear + "-" + monthStr + "-" + monthDates[l].replace(/['"]+/g, '') + ",0");    //restafval
+						if ( m !== n+1) {
+							for (l = 0; l < monthDates.length; l++) {
+								dayNr = ("00" + monthDates[l].replace(/['"]+/g, '')).slice(-2)
+								omrinAfvalbeheerDates.push(omrinYear + "-" + monthStr + "-" + dayNr + ",0");    //restafval
+							}
 						}
 					}
 				}
 
 				//read biobak entries
 
-				i = aNode.indexOf("Biobak");
+				i = aNode.indexOf('"Biobak"');
 				if (i > 0) {
 					m = aNode.indexOf("dates", i);
 	
@@ -82,9 +87,33 @@
 						n = aNode.indexOf("[", i);
 						m = aNode.indexOf("]", i);
 						var monthDates = aNode.substring(n + 1, m).split(',');  //get array for the month
+						if ( m !== n+1) {
+							for (l = 0; l < monthDates.length; l++) {
+								dayNr = ("00" + monthDates[l].replace(/['"]+/g, '')).slice(-2)
+								omrinAfvalbeheerDates.push(omrinYear + "-" + monthStr + "-" + dayNr + ",3");    //gft
+							}
+						}
+					}
+				}
+	
+				//read biobak zomerentries
 
-						for (l = 0; l < monthDates.length; l++) {
-							omrinAfvalbeheerDates.push(omrinYear + "-" + monthStr + "-" + monthDates[l].replace(/['"]+/g, '') + ",3");    //gft
+				i = aNode.indexOf('"Biobak zomer"');
+				if (i > 0) {
+					m = aNode.indexOf("dates", i);
+	
+					for (k = 1; k < 13; k++) {
+
+						monthStr = ("00" + k).slice(-2);
+						i = aNode.indexOf('"' + k + '"', m);
+						n = aNode.indexOf("[", i);
+						m = aNode.indexOf("]", i);
+						var monthDates = aNode.substring(n + 1, m).split(',');  //get array for the month
+						if ( m !== n+1) {
+							for (l = 0; l < monthDates.length; l++) {
+								dayNr = ("00" + monthDates[l].replace(/['"]+/g, '')).slice(-2)
+								omrinAfvalbeheerDates.push(omrinYear + "-" + monthStr + "-" + dayNr + ",3");    //gft
+							}
 						}
 					}
 				}
@@ -103,8 +132,11 @@
 						m = aNode.indexOf("]", i);
 						var monthDates = aNode.substring(n + 1, m).split(',');  //get array for the month
 	
-						for (l = 0; l < monthDates.length; l++) {
-							omrinAfvalbeheerDates.push(omrinYear + "-" + monthStr + "-" + monthDates[l].replace(/['"]+/g, '') + ",3");    //gft
+						if ( m !== n+1) {
+							for (l = 0; l < monthDates.length; l++) {
+								dayNr = ("00" + monthDates[l].replace(/['"]+/g, '')).slice(-2)
+								omrinAfvalbeheerDates.push(omrinYear + "-" + monthStr + "-" + dayNr + ",3");    //gft
+							}
 						}
 					}
 				}
@@ -123,8 +155,11 @@
 						m = aNode.indexOf("]", i);
 						var monthDates = aNode.substring(n + 1, m).split(',');  //get array for the month
 	
+						if ( m !== n+1) {
 						for (l = 0; l < monthDates.length; l++) {
-							omrinAfvalbeheerDates.push(omrinYear + "-" + monthStr + "-" + monthDates[l].replace(/['"]+/g, '') + ",4");    //gft
+								dayNr = ("00" + monthDates[l].replace(/['"]+/g, '')).slice(-2)
+								omrinAfvalbeheerDates.push(omrinYear + "-" + monthStr + "-" + dayNr + ",4");    //gft
+							}
 						}
 					}
 				}
@@ -143,7 +178,8 @@
 						var monthDates = aNode.substring(n + 1, m).split(',');  //get array for the month
 						if ( m !== n+1) {
 							for (l = 0; l < monthDates.length; l++) {
-								omrinAfvalbeheerDates.push(omrinYear + "-" + monthStr + "-" + monthDates[l].replace(/['"]+/g, '') + ",2");    //oudpapier
+								dayNr = ("00" + monthDates[l].replace(/['"]+/g, '')).slice(-2)
+								omrinAfvalbeheerDates.push(omrinYear + "-" + monthStr + "-" + dayNr + ",2");    //oudpapier
 							}
 						}
 					}
@@ -201,4 +237,3 @@
 
 		}
 	}
-
