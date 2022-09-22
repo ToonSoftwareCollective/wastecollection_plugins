@@ -1,4 +1,4 @@
-//<provider>41</provider><version>1.0.0</version><parms>"fullICSUrl"</parms>
+//<provider>41</provider><version>1.0.1</version><parms>"fullICSUrl"</parms>
 //provider RAD Hoeksewaard testdata:https://wasteprod2api.ximmio.com/api/CallIcal?cn=RAD&x=13a2cad9-36d0-4b01-b877-efcb421a864d&ty=Hoeksche Waard&ua=1000006784&sd=2020-12-21&ed=2024-01-09&path=https://wasteprod2api.ximmio.com&ln=nl&nt=7
 
 	function readCalendar(wasteZipcode, wasteHouseNr, extraDates, enableCreateICS, wasteICSId, wasteStreet, wasteStreetName, wasteCity, wasteFullICSUrl) {
@@ -52,14 +52,17 @@
 		switch (shortName) {
 			case "GFT": return 3;
 			case "Gft": return 3;
+			case "Gro": return 3;
 			case "Res": return 0;
 			case "Hui": return 0;
+			case "Gri": return 0;
 			case "Pla": return 1;
 			case "Gla": return 2;
 			case "PMD": return 1;
 			case "Pmd": return 1;
 			case "Ver": return 1;
 			case "Pap": return 2;
+			case "Bla": return 2;
 			case "Tak": return 4;
 			case "Tex": return 5;
 			case "KCA": return 7;
