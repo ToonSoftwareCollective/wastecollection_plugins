@@ -48,6 +48,7 @@
 {"friendlyName":"borssele.nl", "provider":"49", "data": ["zipcode","housenr"], "info":"Plugin voor borssele.nl. Ophaaldata worden automatisch ingelezen na invoering van postcode/huisnummer"},
 {"friendlyName":"goes.nl", "provider":"50", "data": ["zipcode","housenr"], "info":"Plugin voor goes.nl. Ophaaldata worden automatisch ingelezen na invoering van postcode/huisnummer"},
 {"friendlyName":"mijnafvalzaken.nl", "provider":"51", "data": ["ICSId"], "info":"Plugin voor mijnafvalzaken.nl. Ophaaldata worden automatisch ingelezen na invoering van het kalender nummer. Login op de website en zoek de downloadlink voor de kalender. Het nummer aan het eind van de link moet hier worden ingevuld (meestal 16 cijfers)"},
-{"friendlyName":"defryskemarren.nl", "provider":"52", "data": ["ICSId"], "info":"Plugin voor defryskemarren.nl. Ophaaldata worden automatisch ingelezen na invoering van het kalender nummer. Login op de website en zoek de downloadlink voor de kalender. Het nummer aan het eind van de link moet hier worden ingevuld (meestal 16 cijfers)"}
+{"friendlyName":"defryskemarren.nl", "provider":"52", "data": ["ICSId"], "info":"Plugin voor defryskemarren.nl. Ophaaldata worden automatisch ingelezen na invoering van het kalender nummer. Login op de website en zoek de downloadlink voor de kalender. Het nummer aan het eind van de link moet hier worden ingevuld (meestal 16 cijfers)"},
+{"friendlyName":"altena.afvalstoffendienst.nl", "provider":"53", "data": ["zipcode","housenr"], "info":"Plugin voor altena.afvalstoffendienst.nl. Ophaaldata worden automatisch ingelezen na invoering van postcode/huisnummer"}
 ]}
 
