@@ -1,4 +1,4 @@
-//<provider>54</provider><version>1.0.0</version><parms>"ICSId"</parms>
+//<provider>54</provider><version>1.0.1</version><parms>"ICSId"</parms>
 //provider offalkalinder.nl testdata: webcal://www.offalkalinder.nl/ical/1891200001645969
 
 	function readCalendar(wasteZipcode, wasteHouseNr, extraDates, enableCreateICS, wasteICSId, wasteStreet, wasteStreetName, wasteCity, wasteFullICSUrl) {
@@ -10,15 +10,11 @@
 		var wasteType = "";
 		var wasteDatesArray = [];
 		var xmlhttp = new XMLHttpRequest();
-		console.log("JoopAfval:" + "https://www.offalkalinder.nl/ical/" + wasteICSId);
 
 		xmlhttp.onreadystatechange=function() {
 			if (xmlhttp.readyState == 4) {
 				if (xmlhttp.status == 200) {
 					var aNode = xmlhttp.responseText;
-					console.log("JoopAfval:");
-					console.log(aNode);
-
 
 					// read specific waste collection dates check DATE format
 
