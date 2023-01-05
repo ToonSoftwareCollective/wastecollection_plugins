@@ -1,4 +1,4 @@
-//<provider>16</provider><version>1.0.0</version><parms>"fullICSUrl"</parms>
+//<provider>16</provider><version>1.0.1</version><parms>"fullICSUrl"</parms>
 //provider meerlanden.nl testdata:https://wasteprod2api.ximmio.com/api/CallIcal?cn=Meerlanden&x=800bf8d7-6dd1-4490-ba9d-b419d6dc8a45&ty=Lisse&ua=3000055892&sd=2020-12-21&ed=2024-01-09&path=https://wasteprod2api.ximmio.com&ln=nl&nt=7
 
 	function readCalendar(wasteZipcode, wasteHouseNr, extraDates, enableCreateICS, wasteICSId, wasteStreet, wasteStreetName, wasteCity, wasteFullICSUrl) {
@@ -57,7 +57,8 @@
 			case "Pla": return 1;
 			case "Gla": return 2;
 			case "PMD": return 1;
-			case "Pmd": return 1;
+			case "PBD": return 1;
+			case "Ker": return "#";
 			case "Ver": return 1;
 			case "Pap": return 2;
 			case "Tak": return 4;
