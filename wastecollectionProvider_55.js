@@ -51,13 +51,12 @@
 
 	function wasteTypeCode(shortName) {
 		switch (shortName) {
-			case "Inzameling GFT": return 3;
-			case "Rolcontainer G": return 3;
-			case "Inzameling res": return 0;
-			case "Rolcontainer r": return 0;
-			case "Inzameling pap": return 2;
-			case "Inzameling PMD": return 1;
-			case "Kledinginzamel": return 5;
+			case "Groente-\, fru": return 3;
+			case "Restafval": return 0;
+			case "Papier en kart": return 2;
+			//case "Rolcontainer r": return 0;
+			//case "Inzameling PMD": return 1;
+			//case "Kledinginzamel": return 5;
 			default: break;
 		}
 		return "?";
