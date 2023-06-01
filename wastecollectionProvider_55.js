@@ -27,7 +27,7 @@
 						while (i > 0) {
 							j = aNode.indexOf("SUMMARY", i);
 
-							wasteType = wasteTypeCode(aNode.substring(j+8, j+22));
+							wasteType = wasteTypeCode(aNode.substring(j+8, j+15));
 							wasteDatesArray.push(aNode.substring(i+8, i+12) + "-" + aNode.substring(i+12, i+14) + "-" + aNode.substring(i+14, i+16) + "," + wasteType);
 
 
@@ -51,9 +51,9 @@
 
 	function wasteTypeCode(shortName) {
 		switch (shortName) {
-			case "Groente-\, fru": return 3;
-			case "Restafval": return 0;
-			case "Papier en kart": return 2;
+			case "Groente": return 3;
+			case "Restafv": return 0;
+			case "Papier ": return 2;
 			//case "Rolcontainer r": return 0;
 			//case "Inzameling PMD": return 1;
 			//case "Kledinginzamel": return 5;
