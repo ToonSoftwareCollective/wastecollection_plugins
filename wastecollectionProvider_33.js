@@ -1,89 +1,50 @@
-//<provider>33</provider><version>1.0.0</version><parms>"zipcode,housenr"</parms>
-//provider barAfvalbeheer.nl testdata: 2992DL 80
+//<provider>33</provider><version>1.1.0</version><parms>"Zipcode","HouseNr"</parms>
+//provider homeassistant API (thanks to heyajohnny) testdata: https://trashapi.azurewebsites.net/trash?ZipCode=2992DL&HouseNumber=80&ShowWholeYear=true
 
 	function readCalendar(wasteZipcode, wasteHouseNr, extraDates, enableCreateICS, wasteICSId, wasteStreet, wasteStreetName, wasteCity, wasteFullICSUrl) {
 
-       		var params = "companyCode=bb58e633-de14-4b2a-9941-5bc419f1c4b0&postCode=" + wasteZipcode + "&houseNumber=" + wasteHouseNr + "&houseLetter=&houseNumberAddition=";
-		var xmlhttp = new XMLHttpRequest();
-		xmlhttp.open("POST", "https://wasteapi.2go-mobile.com/api/FetchAdress", true);
-        	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        	xmlhttp.setRequestHeader("Content-length", params.length);
-        	xmlhttp.setRequestHeader("Connection", "close");
-		xmlhttp.onreadystatechange = function() {
-			if (xmlhttp.readyState == XMLHttpRequest.DONE) {
-				addressJson = JSON.parse(xmlhttp.responseText);
-				read2goMobileCalendar(addressJson['dataList'][0]['UniqueId']);
-			}
-		}
-		xmlhttp.send(params);
-	}
-
-	function read2goMobileCalendar(uniqueId) {
-
-		var now = new Date;
-		var strMonNow = now.getMonth() + 1;
-		if (strMonNow < 10) {
-			strMonNow = "0" + strMonNow;
-		}
-		var strDayNow = now.getDate();
-		if (strDayNow < 10) {
-			strDayNow = "0" + strDayNow;
-		}
-
-		var later = new Date(now.getTime() + 7772000000); // 3 months later
-		var strMonLater = later.getMonth() + 1;
-		if (strMonLater < 10) {
-			strMonLater = "0" + strMonLater;
-		}
-		var strDayLater = later.getDate();
-		if (strDayLater < 10) {
-			strDayLater = "0" + strDayLater;
-		}
-
-		var startDate = now.getFullYear() + "-" + strMonNow + "-" +  strDayNow; 
-		var endDate = later.getFullYear() + "-" + strMonLater + "-" +  strDayLater;
-		var params = "companyCode=bb58e633-de14-4b2a-9941-5bc419f1c4b0&uniqueAddressId=" + uniqueId + "&startDate=" + startDate + "&endDate=" + endDate;
+		var i = 0;
+		var j = 0;
+		var wasteDatesString = "";
+		var wasteType = "";
+		var wasteDatesArray = [];
+		var inputArray = {};
+		console.log("wastewaste:" + wasteZipcode + "-" + wasteHouseNr);
 
 		var xmlhttp = new XMLHttpRequest();
-		xmlhttp.open("POST", "https://wasteapi.2go-mobile.com/api/GetCalendar", true);
-        	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        	xmlhttp.setRequestHeader("Content-length", params.length);
-        	xmlhttp.setRequestHeader("Connection", "close");
-		xmlhttp.onreadystatechange = function() {
-			if (xmlhttp.readyState == XMLHttpRequest.DONE) {
-				wasteDatesString = "";
-				var wasteType = "";
-				var mobileAfvalbeheerDates = [];
-				var calendar2goMobile = JSON.parse(xmlhttp.responseText)
-				for (var i= 0; i < calendar2goMobile['dataList'].length; i++) {
-					for (var j= 0; j < calendar2goMobile['dataList'][i]['pickupDates'].length; j++) {
-						if (calendar2goMobile['dataList'][i]['_pickupTypeText'] == "GREENGREY") {
-							mobileAfvalbeheerDates.push(calendar2goMobile['dataList'][i]['pickupDates'][j].substring(0,10) + "-" + wasteType2goMobile("GREEN"));
-							mobileAfvalbeheerDates.push(calendar2goMobile['dataList'][i]['pickupDates'][j].substring(0,10) + "-" + wasteType2goMobile("GREY"));
-						} else {
-							mobileAfvalbeheerDates.push(calendar2goMobile['dataList'][i]['pickupDates'][j].substring(0,10) + "-" + wasteType2goMobile(calendar2goMobile['dataList'][i]['_pickupTypeText']));
-						}
+
+		xmlhttp.onreadystatechange=function() {
+			if (xmlhttp.readyState == 4) {
+				if (xmlhttp.status == 200) {
+					console.log(xmlhttp.responseText);
+					inputArray = JSON.parse(xmlhttp.responseText);
+
+					for (i=0;i < inputArray.length; i++) {
+
+						console.log(inputArray[i]["date"].substring(0, 10) + "-" + inputArray[i]["name"])
+						wasteType = wasteTypeCode(inputArray[i]["name"]);
+						console.log(wasteType)
+						wasteDatesArray.push(inputArray[i]["date"].substring(0, 10) + "," + wasteType);
 					}
-				}
-				var tmp = sortArray2(mobileAfvalbeheerDates, extraDates);
 
-				for (i = 0; i < tmp.length; i++) {
-					wasteDatesString = wasteDatesString + tmp[i] + "\n";
+					var tmp = sortArray2(wasteDatesArray, extraDates);
+					for (i = 0; i < tmp.length; i++) {
+						wasteDatesString = wasteDatesString + tmp[i] + "\n";
+					}
+					writeWasteDates(wasteDatesString, enableCreateICS);
 				}
-				writeWasteDates(wasteDatesString, enableCreateICS);
 			}
-		}
-		xmlhttp.send(params);
+		} 
+		xmlhttp.open("GET", "https://trashapi.azurewebsites.net/trash?ZipCode=" + wasteZipcode + "&HouseNumber=" + wasteHouseNr + "&ShowWholeYear=true", true);
+		xmlhttp.send();
 	}
 
-	function wasteType2goMobile(shortName) {
+	function wasteTypeCode(shortName) {
 		switch (shortName) {
-			case "GREEN": return 3;		//groente/fruit	
-			case "PAPER": return 2;		//papier
-			case "PACKAGES": return 1;	//pmd
-			case "PLASTIC": return 1;	//pmd
-			case "VET": return 7;		//KGA meppel.nl
-			case "GREY": return 0;		//restafval
+			case "Restafval": return 0;
+			case "Gft": return 3;
+			case "Papier": return 2;
+			case "Pbd": return 1;
 			default: break;
 		}
 		return "?";
@@ -129,4 +90,3 @@
 
 		}
 	}
-
