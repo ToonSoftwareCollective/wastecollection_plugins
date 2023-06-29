@@ -1,4 +1,4 @@
-//<provider>33</provider><version>1.1.0</version><parms>"Zipcode","HouseNr"</parms>
+//<provider>33</provider><version>2.0.0</version><parms>"Zipcode","HouseNr"</parms>
 //provider homeassistant API (thanks to heyajohnny) testdata: https://trashapi.azurewebsites.net/trash?ZipCode=2992DL&HouseNumber=80&ShowWholeYear=true
 
 	function readCalendar(wasteZipcode, wasteHouseNr, extraDates, enableCreateICS, wasteICSId, wasteStreet, wasteStreetName, wasteCity, wasteFullICSUrl) {
@@ -9,21 +9,17 @@
 		var wasteType = "";
 		var wasteDatesArray = [];
 		var inputArray = {};
-		console.log("wastewaste:" + wasteZipcode + "-" + wasteHouseNr);
 
 		var xmlhttp = new XMLHttpRequest();
 
 		xmlhttp.onreadystatechange=function() {
 			if (xmlhttp.readyState == 4) {
 				if (xmlhttp.status == 200) {
-					console.log(xmlhttp.responseText);
 					inputArray = JSON.parse(xmlhttp.responseText);
 
 					for (i=0;i < inputArray.length; i++) {
 
-						console.log(inputArray[i]["date"].substring(0, 10) + "-" + inputArray[i]["name"])
 						wasteType = wasteTypeCode(inputArray[i]["name"]);
-						console.log(wasteType)
 						wasteDatesArray.push(inputArray[i]["date"].substring(0, 10) + "," + wasteType);
 					}
 
