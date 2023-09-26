@@ -1,4 +1,4 @@
-//<provider>40</provider><version>1.0.0</version><parms>"ICSId"</parms>
+//<provider>40</provider><version>1.0.1</version><parms>"ICSId"</parms>
 //provider spaarnelanden.nl testdata:https://afvalwijzer.spaarnelanden.nl/ical/0473200000003557
 
 	function readCalendar(wasteZipcode, wasteHouseNr, extraDates, enableCreateICS, wasteICSId, wasteStreet, wasteStreetName, wasteCity, wasteFullICSUrl) {
@@ -28,7 +28,7 @@
 							j = aNode.indexOf("SUMMARY", i);
 
 							wasteType = wasteTypeCode(aNode.substring(j+8, j+14));
-							if (aNode.substring(j+8, j+14) == "Duobak") {
+							if (aNode.substring(j+8, j+14) == "Duocon") {
 								wasteType = "2"; // papier
 								wasteDatesArray.push(aNode.substring(i+8, i+12) + "-" + aNode.substring(i+12, i+14) + "-" + aNode.substring(i+14, i+16) + "," + wasteType);
 								wasteType = "1"; // pmd
