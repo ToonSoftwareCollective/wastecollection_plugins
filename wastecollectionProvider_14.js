@@ -1,4 +1,4 @@
-//<provider>14</provider><version>1.0.2</version><parms>"zipcode,housenr"</parms>
+//<provider>14</provider><version>1.0.3</version><parms>"zipcode,housenr"</parms>
 //rova.nl
 
 	function readCalendar(wasteZipcode, wasteHouseNr, extraDates, enableCreateICS, wasteICSId, wasteStreet, wasteStreetName, wasteCity, wasteFullICSUrl) {
@@ -16,6 +16,16 @@
 		var mijnAfvalwijzerDates = [];
 		var wasteDateYMD = "";
 		var wasteYear = "";
+		var searchHouseNr = "";
+
+		// split housenr and housenr extras
+		
+		if (wasteHouseNr.indexOf("-") > 0) {
+			var myHouseArray = wasteHouseNr.split("-");
+			searchHouseNr = myHouseArray[0] + "/" + myHouseArray[1].toLowerCase() 
+		} else {
+			searchHouseNr = wasteHouseNr
+		}
 
 		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.onreadystatechange=function() {
@@ -84,7 +94,7 @@
 				}
 			}
 		}
-		xmlhttp.open("GET", "https://inzamelkalender.rova.nl/nl/" + wasteZipcode + "/" + wasteHouseNr, true);
+		xmlhttp.open("GET", "https://inzamelkalender.rova.nl/nl/" + wasteZipcode.toLowerCase() + "/" + searchHouseNr + "/", true);
 		xmlhttp.send();
 	}
 
