@@ -1,4 +1,4 @@
-//<provider>14</provider><version>1.0.2</version><parms>"zipcode,housenr"</parms>
+//<provider>14</provider><version>1.0.3</version><parms>"zipcode,housenr"</parms>
 //rova.nl
 
 	function readCalendar(wasteZipcode, wasteHouseNr, extraDates, enableCreateICS, wasteICSId, wasteStreet, wasteStreetName, wasteCity, wasteFullICSUrl) {
@@ -16,6 +16,16 @@
 		var mijnAfvalwijzerDates = [];
 		var wasteDateYMD = "";
 		var wasteYear = "";
+		var searchHouseNr = "";
+
+		// split housenr and housenr extras
+		
+		if (wasteHouseNr.indexOf("-") > 0) {
+			var myHouseArray = wasteHouseNr.split("-");
+			searchHouseNr = myHouseArray[0] + "/" + myHouseArray[1].toLowerCase() 
+		} else {
+			searchHouseNr = wasteHouseNr
+		}
 
 		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.onreadystatechange=function() {
@@ -31,12 +41,13 @@
 
 					i = aNode.indexOf("#waste-", i);
 					aNode = aNode.slice(i);
-					i = 0;
+					i = 1;
 
 					endList = aNode.indexOf("section");  //stop here
 
 					if ( i < endList) {
-						while (i < endList) {
+						while ((i < endList) && (i>0)) {
+
 							j = aNode.indexOf('"', i);
 							wasteCodeHTML = aNode.substring(i + 7,j);
 							j = aNode.indexOf('"' + wasteCodeHTML, i);
@@ -45,7 +56,7 @@
 							l = aNode.indexOf('<', k);
 
 							resultDates =  aNode.substring(k + 1, l).split(" ");
-
+	
 							if (resultDates.length == 4) {
 								wasteDateYMD = resultDates[3] + "-" + decodeMonth(resultDates[2]) + "-" + resultDates[1];
 							} else {
@@ -84,7 +95,8 @@
 				}
 			}
 		}
-		xmlhttp.open("GET", "https://inzamelkalender.rova.nl/nl/" + wasteZipcode + "/" + wasteHouseNr, true);
+		xmlhttp.open("GET", "https://inzamelkalender.rova.nl/nl/" + wasteZipcode.toLowerCase() + "/" + searchHouseNr + "/", true);
+		console.log("Wastecollection: " + "https://inzamelkalender.rova.nl/nl/" + wasteZipcode.toLowerCase() + "/" + searchHouseNr + "/");
 		xmlhttp.send();
 	}
 
@@ -140,7 +152,7 @@
 	}
 
 	function sortArray2(inputarray, extraDates) {
-
+	
 			var newArray = inputarray.concat(extraDates);
 			newArray.sort();
 
