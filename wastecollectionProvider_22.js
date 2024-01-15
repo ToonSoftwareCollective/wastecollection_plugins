@@ -1,4 +1,4 @@
-//<provider>22</provider><version>1.0.1</version><parms></parms>
+//<provider>22</provider><version>1.0.2</version><parms></parms>
 //afvalstoffendienst.nl testdata: 5237KW 400
 
 	function readCalendar(wasteZipcode, wasteHouseNr, extraDates, enableCreateICS, wasteICSId, wasteStreet, wasteStreetName, wasteCity, wasteFullICSUrl) {
@@ -108,6 +108,7 @@
 				case "textiel": return 5;
 				case "plastic verpakking & drankkartons": return 1;
 				case "plastic, metalen en drankkartons": return 1;
+				case "pd": return 1;
 				case "plastic": return 1;
 				case "grofvuil (op afroep)": return 8;
 				case "snoeihout (op afroep)": return 4;
