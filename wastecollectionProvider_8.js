@@ -1,4 +1,4 @@
-//<provider>8</provider><version>1.0.0</version><parms>"ICSId"</parms>
+//<provider>8</provider><version>1.0.1</version><parms>"ICSId"</parms>
 //provider cranendonck.nl testdata: 6024AL 168 https://afvalkalender.cranendonck.nl/ical/1706200000017400
 
 	function readCalendar(wasteZipcode, wasteHouseNr, extraDates, enableCreateICS, wasteICSId, wasteStreet, wasteStreetName, wasteCity, wasteFullICSUrl) {
@@ -56,6 +56,7 @@
 		switch (shortName) {
 			case "GFT": return 3;
 			case "Oud": return 2;
+			case "Pap": return 2;
 			case "Pla": return 1;
 			case "Con": return 0;
 			case "Tar": return 0;
