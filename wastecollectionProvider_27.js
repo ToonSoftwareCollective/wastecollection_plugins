@@ -1,4 +1,4 @@
-//<provider>27</provider><version>1.0.0</version><parms>"zipcode,housenr"</parms>
+//<provider>27</provider><version>1.0.1</version><parms>"zipcode,housenr"</parms>
 //provider venlo.nl testdata:https://www.venlo.nl/mijn-afvalkalender/5915PP/271
 
 	function readCalendar(wasteZipcode, wasteHouseNr, extraDates, enableCreateICS, wasteICSId, wasteStreet, wasteStreetName, wasteCity, wasteFullICSUrl) {
@@ -59,8 +59,10 @@
 		switch (shortName) {
 			case "GFT": return 3;
 			case "Restaf": return 0;
+			case "Restafval": return 0;
 			case "Papier": return 2;
 			case "Plasti": return 1;
+			case "PMD": return 1;
 			default: break;
 		}
 		return "?";
