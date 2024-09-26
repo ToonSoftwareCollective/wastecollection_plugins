@@ -1,4 +1,4 @@
-//<provider>1</provider><version>1.0.4</version><parms>"zipcode,housenr"</parms>
+//<provider>1</provider><version>1.0.5</version><parms>"zipcode,housenr"</parms>
 //mijnafvalwijzer,nl (also used for provider 13, 22 and 31)
 
 	function readCalendar(wasteZipcode, wasteHouseNr, extraDates, enableCreateICS, wasteICSId, wasteStreet, wasteStreetName, wasteCity, wasteFullICSUrl) {
@@ -133,6 +133,7 @@
 				case "plastic verpakking & drankkartons": return 1;
 				case "plastic, metalen en drankkartons": return 1;
 				case "plastic": return 1;
+				case "keukenafval": return 7;
 				case "grofvuil (op afroep)": return 8;
 				case "snoeihout (op afroep)": return 4;
 				case "reinigen containers": return "z";
