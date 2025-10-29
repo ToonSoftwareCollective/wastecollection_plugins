@@ -30,7 +30,7 @@
 {"friendlyName":"groningen.nl", "provider":"32", "data": ["ICSId"], "info":"Plugin voor groningen.nl. Ophaaldata worden automatisch ingelezen na invoering van het kalender nummer. Login op de website en zoek de downloadlink voor de kalender. Het nummer aan het eind van de link moet hier worden ingevuld (meestal 16 cijfers)"},
 {"friendlyName":"overige gemeentes", "provider":"33", "data": ["zipcode","housenr"], "info":"Generieke plugin als de andere niet werken. Ophaaldata worden automatisch ingelezen na invoering postcode/huisnummer"},
 {"friendlyName":"twentemilieu.nl", "provider":"34", "data": ["zipcode","housenr"], "info":"Plugin voor twentemilieu.nl. Ophaaldata worden automatisch ingelezen na invoering postcode/huisnummer"},
-{"friendlyName":"reinis.nl", "provider":"35", "data": ["zipcode","housenr"], "info":"Plugin voor reinis.nl. Ophaaldata worden automatisch ingelezen na invoering postcode/huisnummer"},
+{"friendlyName":"reinis.nl", "provider":"35", "data": ["ICSId"], "info":"Plugin voor reinis.nl. Ophaaldata worden automatisch ingelezen na invoering van het kalender nummer. Login op de website en zoek de downloadlink voor de kalender. Het nummer aan het eind van de link moet hier worden ingevuld (meestal 16 cijfers)"},
 {"friendlyName":"hellendoorn.nl", "provider":"36", "data": ["zipcode","housenr"], "info":"Plugin voor hellendoorn.nl. Ophaaldata worden automatisch ingelezen na invoering postcode/huisnummer"},
 {"friendlyName":"stadswerk072.nl", "provider":"37", "data": ["ICSId"], "info":"Plugin voor stadswerk072.nl. Ophaaldata worden automatisch ingelezen na invoering van het kalender nummer. Login op de website en zoek de downloadlink voor de kalender. Het nummer aan het eind van de link moet hier worden ingevuld (meestal 16 cijfers)"},
 {"friendlyName":"almere.nl", "provider":"38", "data": ["zipcode","housenr"], "info":"Plugin voor almere.nl. Ophaaldata worden automatisch ingelezen na invoering postcode/huisnummer"},
@@ -52,4 +52,5 @@
 {"friendlyName":"offalkalinder.nl", "provider":"54", "data": ["ICSId"], "info":"Plugin voor offalkalinder.nl. Ophaaldata worden automatisch ingelezen na invoering van het kalender nummer. Login op de website en zoek de downloadlink voor de kalender. Het nummer aan het eind van de link moet hier worden ingevuld (meestal 16 cijfers)"},
 {"friendlyName":"afvalkalender.voorschoten.nl", "provider":"55", "data": ["ICSId"], "info":"Plugin voor afvalkalender.voorschoten.nl. Ophaaldata worden automatisch ingelezen na invoering van het kalender nummer. Login op de website en zoek de downloadlink voor de kalender. Het nummer aan het eind van de link moet hier worden ingevuld (meestal 16 cijfers)"}
 ]}
+
 
