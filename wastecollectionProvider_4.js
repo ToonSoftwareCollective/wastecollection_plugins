@@ -44,7 +44,7 @@
 				writeWasteDates(wasteDatesString, enableCreateICS);
 			}
 		} 
-		xmlhttp.open("GET", "https://afvalkalender.cyclusnv.nl/ical/" + wasteICSId, true);
+		xmlhttp.open("GET", "https://cyclusnv.nl/ical/" + wasteICSId, true);
 		xmlhttp.send();
 	}
 
