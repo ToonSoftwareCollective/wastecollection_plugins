@@ -50,7 +50,8 @@
 {"friendlyName":"defryskemarren.nl", "provider":"52", "data": ["ICSId"], "info":"Plugin voor defryskemarren.nl. Ophaaldata worden automatisch ingelezen na invoering van het kalender nummer. Login op de website en zoek de downloadlink voor de kalender. Het nummer aan het eind van de link moet hier worden ingevuld (meestal 16 cijfers)"},
 {"friendlyName":"altena.afvalstoffendienst.nl", "provider":"53", "data": ["zipcode","housenr"], "info":"Plugin voor altena.afvalstoffendienst.nl. Ophaaldata worden automatisch ingelezen na invoering van postcode/huisnummer"},
 {"friendlyName":"offalkalinder.nl", "provider":"54", "data": ["ICSId"], "info":"Plugin voor offalkalinder.nl. Ophaaldata worden automatisch ingelezen na invoering van het kalender nummer. Login op de website en zoek de downloadlink voor de kalender. Het nummer aan het eind van de link moet hier worden ingevuld (meestal 16 cijfers)"},
-{"friendlyName":"afvalkalender.voorschoten.nl", "provider":"55", "data": ["ICSId"], "info":"Plugin voor afvalkalender.voorschoten.nl. Ophaaldata worden automatisch ingelezen na invoering van het kalender nummer. Login op de website en zoek de downloadlink voor de kalender. Het nummer aan het eind van de link moet hier worden ingevuld (meestal 16 cijfers)"}
+{"friendlyName":"afvalkalender.voorschoten.nl", "provider":"55", "data": ["ICSId"], "info":"Plugin voor afvalkalender.voorschoten.nl. Ophaaldata worden automatisch ingelezen na invoering van het kalender nummer. Login op de website en zoek de downloadlink voor de kalender. Het nummer aan het eind van de link moet hier worden ingevuld (meestal 16 cijfers)"},
+{"friendlyName":"saver.nl", "provider":"56", "data": ["zipcode","housenr"], "info":"Plugin voor saver.nl. Ophaaldata worden automatisch ingelezen na invoering van postcode/huisnummer"}
 ]}
 
 
