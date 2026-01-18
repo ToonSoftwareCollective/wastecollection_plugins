@@ -1,4 +1,4 @@
-//<provider>4</provider><version>1.0.0</version><parms>"ICSId"</parms>
+//<provider>4</provider><version>1.0.1</version><parms>"ICSId"</parms>
 //provider cyclusnv.nl testdata:2421ag 233 0569200000021380
 
 	function readCalendar(wasteZipcode, wasteHouseNr, extraDates, enableCreateICS, wasteICSId, wasteStreet, wasteStreetName, wasteCity, wasteFullICSUrl) {
@@ -44,7 +44,8 @@
 				writeWasteDates(wasteDatesString, enableCreateICS);
 			}
 		} 
-		xmlhttp.open("GET", "https://afvalkalender.cyclusnv.nl/ical/" + wasteICSId, true);
+		// fixed endpoint
+		xmlhttp.open("GET", "https://cyclusnv.nl/ical/" + wasteICSId, true);
 		xmlhttp.send();
 	}
 
@@ -74,7 +75,7 @@
 		doc2.onreadystatechange=function() {
 			if (doc2.readyState === 4){
 				if (doc2.status === 0) {
-					updateWasteIcon("no");
+					// updateWasteIcon("no"); // defined in QML, not in provider JS scope
 				}
 			}
 		}
@@ -91,7 +92,7 @@
 					outputICS = outputICS + "BEGIN:VEVENT\r\n";
 					outputICS = outputICS + "DTSTART;VALUE=DATE:" + tmpICS[i].substring(0,4) + tmpICS[i].substring(5,7) + tmpICS[i].substring(8,10) + "\r\n";
 					outputICS = outputICS + "SUMMARY:" + wasteTypeFriendlyName(tmpICS[i].substring(11,12)) + "\r\n";
-					outputICS = outputICS + "BEGIN:VEVENT\r\n";
+					outputICS = outputICS + "END:VEVENT\r\n";
 				}
 			}
    			var doc3 = new XMLHttpRequest();
@@ -100,4 +101,3 @@
 
 		}
 	}
-
