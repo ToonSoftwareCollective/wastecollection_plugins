@@ -33,7 +33,7 @@
 					aNode = aNode.slice(i);
 					i = 0;
 
-					endList = aNode.indexOf("section");  //stop here
+					endList = aNode.indexOf("month-sections");  //stop here
 
 					if ( i < endList) {
 						while (i < endList) {
