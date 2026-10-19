@@ -1,93 +1,41 @@
-//<provider>14</provider><version>1.0.3</version><parms>"zipcode,housenr"</parms>
+//<provider>14</provider><version>2.0.0</version><parms>"zipcode,housenr"</parms>
 //rova.nl
+//2026-10-19: rova.nl replaced their html calendar page with a JSON API, see issue #3. Now using https://www.rova.nl/api/waste-calendar/upcoming
 
 	function readCalendar(wasteZipcode, wasteHouseNr, extraDates, enableCreateICS, wasteICSId, wasteStreet, wasteStreetName, wasteCity, wasteFullICSUrl) {
 
-		var i = 0;
-		var j = 0;
-		var k = 0;
-		var l = 0;
-		var endList = 0;
-
 		wasteDatesString = "";
-		var wasteType = "";
-		var wasteCodeHTML = "";
-		var resultDates = [];
-		var mijnAfvalwijzerDates = [];
-		var wasteDateYMD = "";
-		var wasteYear = "";
+		var rovaDates = [];
 		var searchHouseNr = "";
+		var searchHouseAddition = "";
 
-		// split housenr and housenr extras
-		
+		// split housenr and housenr addition (e.g. "12-a" -> houseNumber=12, addition=a)
+
 		if (wasteHouseNr.indexOf("-") > 0) {
 			var myHouseArray = wasteHouseNr.split("-");
-			searchHouseNr = myHouseArray[0] + "/" + myHouseArray[1].toLowerCase() 
+			searchHouseNr = myHouseArray[0];
+			searchHouseAddition = myHouseArray[1];
 		} else {
-			searchHouseNr = wasteHouseNr
+			searchHouseNr = wasteHouseNr;
 		}
+
+		var searchZipcode = wasteZipcode.replace(/\s+/g, "").toUpperCase();
 
 		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.onreadystatechange=function() {
 			if (xmlhttp.readyState == 4) {
 				if (xmlhttp.status == 200) {
-					var aNode = xmlhttp.responseText;
+					var rovaCalendar = JSON.parse(xmlhttp.responseText);
 
-					// read specific waste collection dates
-
-					i = aNode.indexOf("jaar-");
-					j = aNode.indexOf('"', i);
-					wasteYear = aNode.substring(i + 5,j);
-
-					i = aNode.indexOf("#waste-", i);
-					aNode = aNode.slice(i);
-					i = 1;
-
-					endList = aNode.indexOf("section");  //stop here
-
-					if ( i < endList) {
-						while ((i < endList) && (i>0)) {
-
-							j = aNode.indexOf('"', i);
-							wasteCodeHTML = aNode.substring(i + 7,j);
-							j = aNode.indexOf('"' + wasteCodeHTML, i);
-
-							k = aNode.indexOf('span-line-break', j);
-							l = aNode.indexOf('<', k);
-
-							resultDates =  aNode.substring(k + 1, l).split(" ");
-	
-							if (resultDates.length == 4) {
-								wasteDateYMD = resultDates[3] + "-" + decodeMonth(resultDates[2]) + "-" + resultDates[1];
-							} else {
-								wasteDateYMD = wasteYear + "-" + decodeMonth(resultDates[2]) + "-" + resultDates[1];
-							}
-
-							if ((wasteCodeHTML == "rest- & gft-afval") || (wasteCodeHTML == "rest-gft") || (wasteCodeHTML == "restafval & gft") || (wasteCodeHTML == "restgft")) {   //split rest & gft in two dates
-								wasteType = wasteTypeMijnafvalwijzer("restafval");
-								i = aNode.indexOf("date");
-								mijnAfvalwijzerDates .push(wasteDateYMD + "," + wasteType);
-								wasteType = wasteTypeMijnafvalwijzer("gft");
-								mijnAfvalwijzerDates .push(wasteDateYMD + "," + wasteType);
-							} else {
-								if ((wasteCodeHTML == "papier\\/pmd") || (wasteCodeHTML == "dhm")) {   //split papier and pmd in two dates
-									wasteType = wasteTypeMijnafvalwijzer("papier");
-									i = aNode.indexOf("date");
-									mijnAfvalwijzerDates .push(wasteDateYMD + "," + wasteType);
-									wasteType = wasteTypeMijnafvalwijzer("pmd");
-									mijnAfvalwijzerDates .push(wasteDateYMD + "," + wasteType);		
-								} else {
-									wasteType = wasteTypeMijnafvalwijzer(wasteCodeHTML);
-									i = aNode.indexOf("date");
-									mijnAfvalwijzerDates .push(wasteDateYMD + "," + wasteType);
-								}
-							}
-
-							i = aNode.indexOf("#waste-", l);
+					for (var i = 0; i < rovaCalendar.length; i++) {
+						if (rovaCalendar[i]['date'] && rovaCalendar[i]['wasteType']) {
+							var wasteDateYMD = rovaCalendar[i]['date'].substring(0,10);
+							var wasteType = wasteTypeRova(rovaCalendar[i]['wasteType']['code']);
+							rovaDates.push(wasteDateYMD + "," + wasteType);
 						}
 					}
 
-					var tmp = sortArray2(mijnAfvalwijzerDates , extraDates);
+					var tmp = sortArray2(rovaDates, extraDates);
 					for (i = 0; i < tmp.length; i++) {
 						wasteDatesString = wasteDatesString + tmp[i] + "\n";
 					}
@@ -95,64 +43,33 @@
 				}
 			}
 		}
-		xmlhttp.open("GET", "https://inzamelkalender.rova.nl/nl/" + wasteZipcode.toLowerCase() + "/" + searchHouseNr + "/", true);
-		console.log("Wastecollection: " + "https://inzamelkalender.rova.nl/nl/" + wasteZipcode.toLowerCase() + "/" + searchHouseNr + "/");
+		var rovaUrl = "https://www.rova.nl/api/waste-calendar/upcoming?postalcode=" + searchZipcode + "&houseNumber=" + searchHouseNr + "&addition=" + searchHouseAddition + "&take=100";
+		xmlhttp.open("GET", rovaUrl, true);
+		console.log("Wastecollection: " + rovaUrl);
 		xmlhttp.send();
 	}
 
-	function decodeMonth(month) {
-
-		switch (month) {
-			case "januari": return "01";
-			case "februari": return "02";
-			case "maart": return "03";
-			case "april": return "04";
-			case "mei": return "05";
-			case "juni": return "06";
-			case "juli": return "07";
-			case "augustus": return "08";
-			case "september": return "09";
-			case "oktober": return "10";
-			case "november": return "11";
-			case "december": return "12";
-			default: break;
-		}
-		return "??";
-	}
-
-	function wasteTypeMijnafvalwijzer(shortName) {
-			switch (shortName) {
-				case "grofvuil": return 8;
-				case "grofvuil\\/oud ijzer": return 8;
-				case "tuinafval": return 4;
-				case "papier": return 2;
-				case "gft": return 3;
-				case "gft-afval": return 3;
-				case "gft+e(tensresten)": return 3;
-				case "opk": return 2;
-				case "pmd": return 1;
-				case "gft ": return 3;
-				case "groente, fruit en tuinafval": return 3;
-				case "pbd": return 2;
-				case "restafval": return 0;
-				case "takken": return 4;
-				case "kerstbomen": return "#";
-				case "pd": return 2;
-				case "papier en karton": return 2;
-				case "textiel": return 5;
-				case "plastic verpakking & drankkartons": return 1;
-				case "plastic, metalen en drankkartons": return 1;
-				case "plastic": return 1;
-				case "grofvuil (op afroep)": return 8;
-				case "snoeihout (op afroep)": return 4;
-				case "reinigen containers": return "z";
+	function wasteTypeRova(shortCode) {
+			switch (shortCode.toUpperCase()) {
+				case "RST": return 0;			//restafval
+				case "PMD": return 1;			//pmd
+				case "PAP": return 2;			//papier
+				case "LOSPAP": return 2;		//papier
+				case "GFT": return 3;			//gft
+				case "TAK": return 4;			//tak/snoeiafval
+				case "SNOEI": return 4;		//snoeiafval
+				case "TEX": return 5;			//textiel
+				case "GLAS": return 2;			//glas
+				case "KCA": return 7;			//kca
+				case "GROF": return 8;			//grofvuil
+				case "GROFVUIL": return 8;		//grofvuil
 				default: break;
 			}
 		return "?";
 	}
 
 	function sortArray2(inputarray, extraDates) {
-	
+
 			var newArray = inputarray.concat(extraDates);
 			newArray.sort();
 
@@ -178,7 +95,7 @@
 			var tmpICS = wasteDatesString.split("\n");
 
 			for (var i = 0; i < tmpICS.length; i++) {
-				if (tmpICS[i].length > 10) { 
+				if (tmpICS[i].length > 10) {
 					outputICS = outputICS + "BEGIN:VEVENT\r\n";
 					outputICS = outputICS + "DTSTART;VALUE=DATE:" + tmpICS[i].substring(0,4) + tmpICS[i].substring(5,7) + tmpICS[i].substring(8,10) + "\r\n";
 					outputICS = outputICS + "SUMMARY:" + wasteTypeFriendlyName(tmpICS[i].substring(11,12)) + "\r\n";

@@ -1,24 +1,25 @@
-//<provider>43</provider><version>1.0.0</version><parms>"zipcode,housenr"</parms>
+//<provider>43</provider><version>1.1.0</version><parms>"zipcode,housenr"</parms>
 //provider ACV (Veendendaal e.o.) testdata: 3902AT 5
+//2026-10-19: provider moved from wasteapi.2go-mobile.com to the Ximmio platform (wasteapi.ximmio.com), see issue #6
 
 	function readCalendar(wasteZipcode, wasteHouseNr, extraDates, enableCreateICS, wasteICSId, wasteStreet, wasteStreetName, wasteCity, wasteFullICSUrl) {
 
        		var params = "companyCode=f8e2844a-095e-48f9-9f98-71fceb51d2c3&postCode=" + wasteZipcode + "&houseNumber=" + wasteHouseNr + "&houseLetter=&houseNumberAddition=";
 		var xmlhttp = new XMLHttpRequest();
-		xmlhttp.open("POST", "https://wasteapi.2go-mobile.com/api/FetchAdress", true);
+		xmlhttp.open("POST", "https://wasteapi.ximmio.com/api/FetchAdress", true);
         	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         	xmlhttp.setRequestHeader("Content-length", params.length);
         	xmlhttp.setRequestHeader("Connection", "close");
 		xmlhttp.onreadystatechange = function() {
 			if (xmlhttp.readyState == XMLHttpRequest.DONE) {
 				addressJson = JSON.parse(xmlhttp.responseText);
-				read2goMobileCalendar(addressJson['dataList'][0]['UniqueId']);
+				read2goMobileCalendar(addressJson['dataList'][0]['UniqueId'], addressJson['dataList'][0]['Community'] || "");
 			}
 		}
 		xmlhttp.send(params);
 	}
 
-	function read2goMobileCalendar(uniqueId) {
+	function read2goMobileCalendar(uniqueId, community) {
 
 		var now = new Date;
 		var strMonNow = now.getMonth() + 1;
@@ -40,12 +41,12 @@
 			strDayLater = "0" + strDayLater;
 		}
 
-		var startDate = now.getFullYear() + "-" + strMonNow + "-" +  strDayNow; 
+		var startDate = now.getFullYear() + "-" + strMonNow + "-" +  strDayNow;
 		var endDate = later.getFullYear() + "-" + strMonLater + "-" +  strDayLater;
-		var params = "companyCode=f8e2844a-095e-48f9-9f98-71fceb51d2c3&uniqueAddressId=" + uniqueId + "&startDate=" + startDate + "&endDate=" + endDate;
+		var params = "companyCode=f8e2844a-095e-48f9-9f98-71fceb51d2c3&uniqueAddressID=" + uniqueId + "&startDate=" + startDate + "&endDate=" + endDate + "&community=" + community;
 
 		var xmlhttp = new XMLHttpRequest();
-		xmlhttp.open("POST", "https://wasteapi.2go-mobile.com/api/GetCalendar", true);
+		xmlhttp.open("POST", "https://wasteapi.ximmio.com/api/GetCalendar", true);
         	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         	xmlhttp.setRequestHeader("Content-length", params.length);
         	xmlhttp.setRequestHeader("Connection", "close");
@@ -78,7 +79,7 @@
 
 	function wasteType2goMobile(shortName) {
 		switch (shortName) {
-			case "GREEN": return 3;		//groente/fruit	
+			case "GREEN": return 3;		//groente/fruit
 			case "PAPER": return 2;		//papier
 			case "PACKAGES": return 1;	//pmd
 			case "PLASTIC": return 1;	//pmd
@@ -90,7 +91,7 @@
 	}
 
 	function sortArray2(inputarray, extraDates) {
-	
+
 			var newArray = inputarray.concat(extraDates);
 			newArray.sort();
 
@@ -116,7 +117,7 @@
 			var tmpICS = wasteDatesString.split("\n");
 
 			for (var i = 0; i < tmpICS.length; i++) {
-				if (tmpICS[i].length > 10) { 
+				if (tmpICS[i].length > 10) {
 					outputICS = outputICS + "BEGIN:VEVENT\r\n";
 					outputICS = outputICS + "DTSTART;VALUE=DATE:" + tmpICS[i].substring(0,4) + tmpICS[i].substring(5,7) + tmpICS[i].substring(8,10) + "\r\n";
 					outputICS = outputICS + "SUMMARY:" + wasteTypeFriendlyName(tmpICS[i].substring(11,12)) + "\r\n";
@@ -129,4 +130,3 @@
 
 		}
 	}
-
