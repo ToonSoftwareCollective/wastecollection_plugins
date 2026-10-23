@@ -1,75 +1,99 @@
-//<provider>27</provider><version>1.0.1</version><parms>"zipcode,housenr"</parms>
-//provider venlo.nl testdata:https://www.venlo.nl/mijn-afvalkalender/5915PP/271
+//<provider>27</provider><version>2.0.0</version><parms>"zipcode,housenr"</parms>
+//provider venlo.nl testdata: 5915PP 271
+//2026-10-23: venlo.nl trash-calendar download no longer works, calendar moved to the Ximmio platform (wasteapi.ximmio.com)
 
 	function readCalendar(wasteZipcode, wasteHouseNr, extraDates, enableCreateICS, wasteICSId, wasteStreet, wasteStreetName, wasteCity, wasteFullICSUrl) {
 
-		var i = 0;
-		var j = 0;
-		var k = 0;
-		var wasteDatesString = "";
-		var wasteType = "";
-		var wasteDatesArray = [];
+       		var params = "companyCode=280affe9-1428-443b-895a-b90431b8ca31&postCode=" + wasteZipcode + "&houseNumber=" + wasteHouseNr + "&houseLetter=&houseNumberAddition=";
 		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.open("POST", "https://wasteapi.ximmio.com/api/FetchAdress", true);
+        	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        	xmlhttp.setRequestHeader("Content-length", params.length);
+        	xmlhttp.setRequestHeader("Connection", "close");
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+				var addressJson = JSON.parse(xmlhttp.responseText);
+				if (!addressJson['dataList'] || addressJson['dataList'].length == 0) return;	// address unknown at Ximmio
+				read2goMobileCalendar(addressJson['dataList'][0]['UniqueId'], addressJson['dataList'][0]['Community'] || "", extraDates, enableCreateICS);
+			}
+		}
+		xmlhttp.send(params);
+	}
 
-		xmlhttp.onreadystatechange=function() {
-			if (xmlhttp.readyState == 4) {
-				if (xmlhttp.status == 200) {
-					var aNode = xmlhttp.responseText;
+	function read2goMobileCalendar(uniqueId, community, extraDates, enableCreateICS) {
 
-					// read specific waste collection dates check DATE format
+		var now = new Date;
+		var strMonNow = now.getMonth() + 1;
+		if (strMonNow < 10) {
+			strMonNow = "0" + strMonNow;
+		}
+		var strDayNow = now.getDate();
+		if (strDayNow < 10) {
+			strDayNow = "0" + strDayNow;
+		}
 
-					i = aNode.indexOf("DTSTART");
-					if (i > 0) {
-						if (aNode.substring(i, i+18) == "DTSTART;VALUE=DATE") i = i + 11;
-					}
+		var later = new Date(now.getTime() + 31536000000); // 1 year later
+		var strMonLater = later.getMonth() + 1;
+		if (strMonLater < 10) {
+			strMonLater = "0" + strMonLater;
+		}
+		var strDayLater = later.getDate();
+		if (strDayLater < 10) {
+			strDayLater = "0" + strDayLater;
+		}
 
-					if ( i > 0 ) {
-						while (i > 0) {
-							j = aNode.indexOf("SUMMARY", i);
-							k = aNode.indexOf("\n", j);
+		var startDate = now.getFullYear() + "-" + strMonNow + "-" +  strDayNow;
+		var endDate = later.getFullYear() + "-" + strMonLater + "-" +  strDayLater;
+		var params = "companyCode=280affe9-1428-443b-895a-b90431b8ca31&uniqueAddressID=" + uniqueId + "&startDate=" + startDate + "&endDate=" + endDate + "&community=" + community;
 
-							wasteType = wasteTypeCode(aNode.substring(j+8, k-1));
-							if (aNode.substring(j+8, j+11) == "DUO") {
-								wasteType = "0"; // Restafval
-								wasteDatesArray.push(aNode.substring(i+8, i+12) + "-" + aNode.substring(i+12, i+14) + "-" + aNode.substring(i+14, i+16) + "," + wasteType);
-								wasteType = "1"; // pmd
-							}
-							wasteDatesArray.push(aNode.substring(i+8, i+12) + "-" + aNode.substring(i+12, i+14) + "-" + aNode.substring(i+14, i+16) + "," + wasteType);
-
-
-							i = aNode.indexOf("DTSTART", i + 10);	
-							if (i > 0) {
-								if (aNode.substring(i, i+18) == "DTSTART;VALUE=DATE") i = i + 11;
-							}
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.open("POST", "https://wasteapi.ximmio.com/api/GetCalendar", true);
+        	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        	xmlhttp.setRequestHeader("Content-length", params.length);
+        	xmlhttp.setRequestHeader("Connection", "close");
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+				var wasteDatesString = "";
+				var wasteType = "";
+				var mobileAfvalbeheerDates = [];
+				var calendar2goMobile = JSON.parse(xmlhttp.responseText)
+				for (var i= 0; i < calendar2goMobile['dataList'].length; i++) {
+					for (var j= 0; j < calendar2goMobile['dataList'][i]['pickupDates'].length; j++) {
+						if (calendar2goMobile['dataList'][i]['_pickupTypeText'] == "GREENGREY") {
+							mobileAfvalbeheerDates.push(calendar2goMobile['dataList'][i]['pickupDates'][j].substring(0,10) + "," + wasteType2goMobile("GREEN"));
+							mobileAfvalbeheerDates.push(calendar2goMobile['dataList'][i]['pickupDates'][j].substring(0,10) + "," + wasteType2goMobile("GREY"));
+						} else {
+							mobileAfvalbeheerDates.push(calendar2goMobile['dataList'][i]['pickupDates'][j].substring(0,10) + "," + wasteType2goMobile(calendar2goMobile['dataList'][i]['_pickupTypeText']));
 						}
-					}	
+					}
 				}
-				var tmp = sortArray2(wasteDatesArray, extraDates);
+				var tmp = sortArray2(mobileAfvalbeheerDates, extraDates);
+
 				for (i = 0; i < tmp.length; i++) {
 					wasteDatesString = wasteDatesString + tmp[i] + "\n";
 				}
 				writeWasteDates(wasteDatesString, enableCreateICS);
 			}
-		} 
-		xmlhttp.open("GET", "https://www.venlo.nl/trash-calendar/download/" + wasteZipcode + "/" + wasteHouseNr, true);
-		xmlhttp.send();
+		}
+		xmlhttp.send(params);
 	}
 
-	function wasteTypeCode(shortName) {
+	function wasteType2goMobile(shortName) {
 		switch (shortName) {
-			case "GFT": return 3;
-			case "Restaf": return 0;
-			case "Restafval": return 0;
-			case "Papier": return 2;
-			case "Plasti": return 1;
-			case "PMD": return 1;
+			case "GREEN": return 3;		//groente/fruit
+			case "PAPER": return 2;		//papier
+			case "PACKAGES": return 1;	//pmd
+			case "PACKAGESBAG": return 1;	//pmd zak venlo.nl
+			case "PLASTIC": return 1;	//pmd
+			case "VET": return 7;		//KGA meppel.nl
+			case "GREY": return 0;		//restafval
 			default: break;
 		}
 		return "?";
 	}
 
 	function sortArray2(inputarray, extraDates) {
-	
+
 			var newArray = inputarray.concat(extraDates);
 			newArray.sort();
 
@@ -95,7 +119,7 @@
 			var tmpICS = wasteDatesString.split("\n");
 
 			for (var i = 0; i < tmpICS.length; i++) {
-				if (tmpICS[i].length > 10) { 
+				if (tmpICS[i].length > 10) {
 					outputICS = outputICS + "BEGIN:VEVENT\r\n";
 					outputICS = outputICS + "DTSTART;VALUE=DATE:" + tmpICS[i].substring(0,4) + tmpICS[i].substring(5,7) + tmpICS[i].substring(8,10) + "\r\n";
 					outputICS = outputICS + "SUMMARY:" + wasteTypeFriendlyName(tmpICS[i].substring(11,12)) + "\r\n";
@@ -108,4 +132,3 @@
 
 		}
 	}
-
